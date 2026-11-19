@@ -78,6 +78,11 @@
         button:hover {
             background-color: #0ea5e9;
         }
+        .start-btn {
+            padding: 14px 32px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
         .message {
             margin-top: 15px;
             font-size: 16px;
@@ -109,7 +114,12 @@
 </head>
 <body>
 
-<div class="card">
+<div class="card" id="introScreen">
+    <h2>🎮 Թիմային Քվիզ</h2>
+    <button id="startBtn" class="start-btn">Սկսել խաղը</button>
+</div>
+
+<div class="card" id="quizCard" style="display: none;">
     <button id="backArrowBtn" class="back-arrow" title="Նորից անուն գրել" style="display: none;">←</button>
     <div class="progress" id="progressText">Հարց 1 / 3</div>
     <h2 id="questionText">🎯 Ո՞վ է որ ամենաշատն է շփվել իրավապահ մարմինների հետ</h2>
@@ -161,6 +171,9 @@
 
     let currentQuestionIndex = 0;
 
+    const introScreen = document.getElementById("introScreen");
+    const quizCard = document.getElementById("quizCard");
+    const startBtn = document.getElementById("startBtn");
     const questionText = document.getElementById("questionText");
     const progressText = document.getElementById("progressText");
     const answerInput = document.getElementById("answerInput");
@@ -195,7 +208,7 @@
             memeContainer.style.display = "none";
             gameArea.style.display = "block";
         } else {
-            document.querySelector(".card").innerHTML = `
+            quizCard.innerHTML = `
                 <h2>🎉 Հիանալի է!</h2>
                 <p class="question-box">Քվիզն ավարտվեց։ Հուսով ենք՝ թիմը զվարճացավ։ 👏</p>
                 <button onclick="location.reload()">Խաղալ կրկին 🔄</button>
@@ -241,6 +254,12 @@
         videoEl.play().catch(e => console.log("Autoplay:", e));
     }
 
+    startBtn.addEventListener("click", function() {
+        introScreen.style.display = "none";
+        quizCard.style.display = "block";
+        loadQuestion();
+    });
+
     checkBtn.addEventListener("click", checkAnswer);
     backArrowBtn.addEventListener("click", returnToInput);
     retryBtn.addEventListener("click", returnToInput);
@@ -253,8 +272,6 @@
     answerInput.addEventListener("keypress", function(e) {
         if (e.key === "Enter") checkAnswer();
     });
-
-    loadQuestion();
 </script>
 
 </body>
