@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Թիմային Քվիզ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .card {
+            position: relative;
+            background-color: #1e293b;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .back-arrow {
+            position: absolute;
+            top: 18px;
+            left: 20px;
+            background-color: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            padding: 6px 12px;
+            font-size: 18px;
+            line-height: 1;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .back-arrow:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+        h2 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        input[type="text"] {
+            width: 85%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #475569;
+            background-color: #0f172a;
+            color: #fff;
+            outline: none;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            border-color: #38bdf8;
+        }
+        button {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0ea5e9;
+        }
+        .message {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+        .error {
+            color: #f43f5e;
+        }
+        .success {
+            color: #22c55e;
+        }
+        .meme-container {
+            margin-top: 15px;
+            display: none;
+        }
+        .meme-container video {
+            width: 100%;
+            max-height: 240px;
+            border-radius: 12px;
+            background: #000;
+        }
+        .progress {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <button id="backArrowBtn" class="back-arrow" title="Նորից անուն գրել" style="display: none;">←</button>
+    <div class="progress" id="progressText">Հարց 1 / 3</div>
+    <h2 id="questionText">🎯 Ո՞վ է որ ամենաշատն է շփվել իրավապահ մարմինների հետ</h2>
+
+    <div id="gameArea">
+        <input type="text" id="answerInput" placeholder="Գրիր անունը..." autocomplete="off">
+        <br>
+        <button id="checkBtn">Ստուգել</button>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="meme-container" id="memeContainer">
+        <p id="resultComment" style="font-style: italic; margin-bottom: 10px;"></p>
+        <video id="resultVideo" controls autoplay loop playsinline></video>
+        <br><br>
+        <button id="nextBtn" style="display:none;">Հաջորդ հարցը ➡️</button>
+        <button id="retryBtn" style="display:none; background-color: #f43f5e; color: #fff;">Փորձել կրկին 🔄</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "🎯 Ո՞վ է որ ամենաշատն է շփվել իրավապահ մարմինների հետ",
+            correctAnswers: ["մարտին", "martin", "մրդո", "mrdo"],
+            successComment: "Ճիշտ է! Հենց Մարտինն / Մրդոն է 😎🔥",
+            successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795109780/IMG_8815.mp4",
+            errorComment: "Չէ՛, սխալ պատասխան է։ Փորձի՛ր կրկին 😅",
+            errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795109870/video_2026-11-19_21-37-15.mp4"
+        },
+        {
+            question: "🎯 Ո՞վ է որ օր ու գիշեր մենակ ուտելու մասին է մտածում",
+            correctAnswers: ["վալեր", "valer"],
+            successComment: "Ճիշտ է! Հենց Վալերն է, էլ ո՞վ 🍕🍔😂",
+            successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795110295/valer_jisht_es.mp4",
+            errorComment: "Չէ՛, սխալ պատասխան է։ Կրկին մտածիր ուտելու մասին 😅",
+            errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795110295/valer_sut.mp4"
+        },
+        {
+            question: "🎯 Ո՞վ է որ ամենաշատն է օգտվում թեմույից",
+            correctAnswers: ["վերգ", "վերգինե", "verg", "vergine"],
+            successComment: "Ճիշտ է! Temu-ի գլխավոր հաճախորդը Վերգն է / Վերգինեն է 🛍️📦😎",
+            successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795111403/verg_jisht.mp4",
+            errorComment: "Չէ՛, սխալ պատասխան է։ Փորձի՛ր կրկին 😅",
+            errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795111402/verg_sxal.mp4"
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+
+    const questionText = document.getElementById("questionText");
+    const progressText = document.getElementById("progressText");
+    const answerInput = document.getElementById("answerInput");
+    const messageDiv = document.getElementById("message");
+    const memeContainer = document.getElementById("memeContainer");
+    const gameArea = document.getElementById("gameArea");
+    const resultComment = document.getElementById("resultComment");
+    const videoEl = document.getElementById("resultVideo");
+    const nextBtn = document.getElementById("nextBtn");
+    const retryBtn = document.getElementById("retryBtn");
+    const checkBtn = document.getElementById("checkBtn");
+    const backArrowBtn = document.getElementById("backArrowBtn");
+
+    function returnToInput() {
+        videoEl.pause();
+        memeContainer.style.display = "none";
+        backArrowBtn.style.display = "none";
+        gameArea.style.display = "block";
+        answerInput.value = "";
+        messageDiv.innerText = "";
+        answerInput.focus();
+    }
+
+    function loadQuestion() {
+        videoEl.pause();
+        backArrowBtn.style.display = "none";
+        if (currentQuestionIndex < questions.length) {
+            questionText.innerText = questions[currentQuestionIndex].question;
+            progressText.innerText = `Հարց ${currentQuestionIndex + 1} / ${questions.length}`;
+            answerInput.value = "";
+            messageDiv.innerText = "";
+            memeContainer.style.display = "none";
+            gameArea.style.display = "block";
+        } else {
+            document.querySelector(".card").innerHTML = `
+                <h2>🎉 Հիանալի է!</h2>
+                <p class="question-box">Քվիզն ավարտվեց։ Հուսով ենք՝ թիմը զվարճացավ։ 👏</p>
+                <button onclick="location.reload()">Խաղալ կրկին 🔄</button>
+            `;
+        }
+    }
+
+    function checkAnswer() {
+        const userInput = answerInput.value.trim().toLowerCase();
+        const currentQ = questions[currentQuestionIndex];
+
+        if (!userInput) {
+            messageDiv.className = "message error";
+            messageDiv.innerText = "Գրիր անունը ⚠️";
+            return;
+        }
+
+        const isCorrect = currentQ.correctAnswers.some(ans => userInput.includes(ans));
+        gameArea.style.display = "none";
+        memeContainer.style.display = "block";
+
+        if (isCorrect) {
+            messageDiv.className = "message success";
+            messageDiv.innerText = "Ճիշտ է 🎉";
+            resultComment.style.color = "#38bdf8";
+            resultComment.innerText = currentQ.successComment;
+            videoEl.src = currentQ.successVideo;
+            nextBtn.style.display = "inline-block";
+            retryBtn.style.display = "none";
+            backArrowBtn.style.display = "inline-block";
+        } else {
+            messageDiv.className = "message error";
+            messageDiv.innerText = "Սխալ պատասխան է ❌";
+            resultComment.style.color = "#f43f5e";
+            resultComment.innerText = currentQ.errorComment;
+            videoEl.src = currentQ.errorVideo;
+            nextBtn.style.display = "none";
+            retryBtn.style.display = "inline-block";
+            backArrowBtn.style.display = "none";
+        }
+
+        videoEl.load();
+        videoEl.play().catch(e => console.log("Autoplay:", e));
+    }
+
+    checkBtn.addEventListener("click", checkAnswer);
+    backArrowBtn.addEventListener("click", returnToInput);
+    retryBtn.addEventListener("click", returnToInput);
+
+    nextBtn.addEventListener("click", function() {
+        currentQuestionIndex++;
+        loadQuestion();
+    });
+
+    answerInput.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+    });
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
