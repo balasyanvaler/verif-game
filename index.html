@@ -121,7 +121,7 @@
 
 <div class="card" id="quizCard" style="display: none;">
     <button id="backArrowBtn" class="back-arrow" title="Նորից անուն գրել" style="display: none;">←</button>
-    <div class="progress" id="progressText">Հարց 1 / 7</div>
+    <div class="progress" id="progressText">Հարց 1 / 8</div>
     <h2 id="questionText">🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն» ու ծառայողական զրույցները</h2>
 
     <div id="gameArea">
@@ -198,6 +198,14 @@
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795118453/%D5%B4%D5%AB%D6%84%D5%B8_%D5%B3%D5%AB%D5%B7%D5%BF.mp4",
             errorComment: "Չէ՛, սխալ պատասխան է։ Փորձի՛ր կրկին 😅",
             errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795118454/%D5%B4%D5%AB%D6%84%D5%B8_%D5%BD%D5%AD%D5%A1%D5%AC.mp4"
+        },
+        {
+            question: "🎯 Ո՞վ է մերոնցից, ում օրը շուտ է փակվում՝ ընտանեկան հատուկ «ռեժիմով», իսկ կողքին էլ միշտ պահում է պահեր որսալու աչքը",
+            correctAnswers: ["քրիստ", "քրիստինե", "քիսո", "քիս", "qristine", "kristine", "kis", "kiso", "qiso", "qis", "qrist"],
+            successComment: "Ճիշտ է! Հենց Քրիստն է 📸✨💛",
+            successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795121411/%D5%94%D5%AB%D5%BD_%D5%B3%D5%AB%D5%B7%D5%BF.mp4",
+            errorComment: "Չէ՛, սխալ պատասխան է։ Փորձի՛ր կրկին 😅",
+            errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795121412/%D6%84%D5%AB%D5%BD_%D5%BD%D5%AD%D5%A1%D5%AC.mp4"
         }
     ];
 
@@ -242,7 +250,7 @@
         } else {
             quizCard.innerHTML = `
                 <h2>🎉 Հիանալի է!</h2>
-                <p class="question-box">Քվիզն ավարտվեց։ Հուսով ենք՝ թիմը զվարճացավ։ 👏</p>
+                <p class="question-box">Խաղն ավարտվեց։ Հուսով ենք՝ թիմը զվարճացավ։ 👏</p>
                 <button onclick="location.reload()">Խաղալ կրկին 🔄</button>
             `;
         }
