@@ -122,7 +122,7 @@
 <div class="card" id="quizCard" style="display: none;">
     <button id="backArrowBtn" class="back-arrow" title="Նորից անուն գրել" style="display: none;">←</button>
     <div class="progress" id="progressText">Հարց 1 / 6</div>
-    <h2 id="questionText">🎯 Ո՞վ է որ ամենաշատն է շփվել իրավապահ մարմինների հետ</h2>
+    <h2 id="questionText">🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն» ու ծառայողական զրույցները</h2>
 
     <div id="gameArea">
         <input type="text" id="answerInput" placeholder="Գրիր անունը..." autocomplete="off">
@@ -144,7 +144,7 @@
 <script>
     const questions = [
         {
-            question: "🎯 Ո՞վ է որ ամենաշատն է շփվել իրավապահ մարմինների հետ",
+            question: "🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն» ու ծառայողական զրույցները",
             correctAnswers: ["մարտին", "martin", "մրդո", "mrdo"],
             successComment: "Ճիշտ է! Հենց Մարտինն / Մրդոն է 😎🔥",
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795109780/IMG_8815.mp4",
@@ -152,23 +152,23 @@
             errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795109870/video_2026-11-19_21-37-15.mp4"
         },
         {
-            question: "🎯 Ո՞վ է որ օր ու գիշեր մենակ ուտելու մասին է մտածում",
+            question: "🎯 Ո՞վ է այն մարդը, ում գլխում օր ու գիշեր աշխատում է սեփական «ռեստորանը», ու ցանկացած թեմա վերջում տանում է դեպի համեղ «հաշիվը»",
             correctAnswers: ["վալեր", "valer"],
             successComment: "Ճիշտ է! Հենց Վալերն է, էլ ո՞վ 🍕🍔😂",
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795110295/valer_jisht_es.mp4",
-            errorComment: "Չէ՛, սխալ պատասխան է։ Կրկին մտածիր ուտելու մասին 😅",
+            errorComment: "Չէ՛, սխալ պատասխան է։ Կրկին մտածիր 😅",
             errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795110295/valer_sut.mp4"
         },
         {
-            question: "🎯 Ո՞վ է որ ամենաշատն է օգտվում թեմույից",
+            question: "🎯 Ո՞վ է մերոնցից, ում համար առաքիչներն ու հեռավոր պահեստներից եկող «գանձերը» դարձել են առօրյա ռիտուալ",
             correctAnswers: ["վերգ", "վերգինե", "verg", "vergine"],
-            successComment: "Ճիշտ է! Temu-ի գլխավոր հաճախորդը Վերգն է / Վերգինեն է 🛍️📦😎",
+            successComment: "Ճիշտ է! Վերգն է / Վերգինեն է՝ իր հավերժական առաքումներով 🛍️📦😎",
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795111403/verg_jisht.mp4",
             errorComment: "Չէ՛, սխալ պատասխան է։ Փորձի՛ր կրկին 😅",
             errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795111402/verg_sxal.mp4"
         },
         {
-            question: "🎯 Ով է թիմի ամենալաքշրի աղջիկը",
+            question: "🎯 Ո՞վ է թիմում ամենափայլուն ու ամենա«պրեմիում» կերպարով անձը, ում ոճն ու շքեղության զգացողությունը միշտ առանձնանում են",
             correctAnswers: ["աննա", "anna"],
             successComment: "Ճիշտ է! Հենց Աննան է ✨💅😎",
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795114906/anna_jisht.mp4",
