@@ -28,6 +28,43 @@
             text-align: center;
             box-sizing: border-box;
         }
+        .victory-card {
+            border: 1.5px solid rgba(250, 204, 21, 0.55);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 24px rgba(250, 204, 21, 0.14);
+        }
+        .victory-title {
+            color: #facc15;
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 0.4px;
+        }
+        .victory-subtitle {
+            color: #e2e8f0;
+            font-size: 16px;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+        .victory-video {
+            width: 100%;
+            max-height: 250px;
+            border-radius: 12px;
+            background: #000;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            margin-bottom: 20px;
+        }
+        .restart-btn {
+            background: linear-gradient(135deg, #38bdf8 0%, #eab308 100%);
+            color: #0f172a;
+            font-weight: bold;
+            padding: 12px 26px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .restart-btn:hover {
+            opacity: 0.92;
+        }
         .back-arrow {
             position: absolute;
             top: 18px;
@@ -143,6 +180,8 @@
 
 <script>
 (function() {
+    const victoryVideoUrl = "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795170822/%D5%B0%D5%A1%D5%B2%D5%A9%D5%A1%D5%B6%D5%A1%D5%AF.mp4";
+
     const questions = [
         {
             question: "🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն»",
@@ -284,6 +323,18 @@
     const checkBtn = document.getElementById("checkBtn");
     const backArrowBtn = document.getElementById("backArrowBtn");
 
+    function showVictoryScreen() {
+        videoEl.pause();
+        quizCard.classList.add("victory-card");
+        quizCard.innerHTML = `
+            <h2 class="victory-title">🏆 ՀԱՂԹԱՆԱԿ 🎉</h2>
+            <p class="victory-subtitle">Ապրե՜ս, իսկական չեմպիոնական հաղթանակ էր</p>
+            <video class="victory-video" src="${victoryVideoUrl}" controls autoplay loop playsinline></video>
+            <br>
+            <button class="restart-btn" onclick="location.reload()">Խաղալ կրկին 🔄</button>
+        `;
+    }
+
     function returnToInput() {
         videoEl.pause();
         memeContainer.style.display = "none";
@@ -305,11 +356,7 @@
             memeContainer.style.display = "none";
             gameArea.style.display = "block";
         } else {
-            quizCard.innerHTML = `
-                <h2>🎉 Հիանալի է!</h2>
-                <p class="question-box">Խաղն ավարտվեց։ Հուսով ենք՝ թիմը զվարճացավ։ 👏</p>
-                <button onclick="location.reload()">Խաղալ կրկին 🔄</button>
-            `;
+            showVictoryScreen();
         }
     }
 
