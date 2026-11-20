@@ -122,7 +122,7 @@
 <div class="card" id="quizCard" style="display: none;">
     <button id="backArrowBtn" class="back-arrow" title="Նորից անուն գրել" style="display: none;">←</button>
     <div class="progress" id="progressText">Հարց 1 / 13</div>
-    <h2 id="questionText">🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն» </h2>
+    <h2 id="questionText">🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն»</h2>
 
     <div id="gameArea">
         <input type="text" id="answerInput" placeholder="Գրիր անունը..." autocomplete="off">
@@ -142,9 +142,10 @@
 </div>
 
 <script>
+(function() {
     const questions = [
         {
-            question: "🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն» ու ծառայողական զրույցները",
+            question: "🎯 Ո՞վ է մեր թիմից, ում «կենսագրության» ամենաակտիվ էջերում հաճախ են հայտնվել համազգեստավոր «ծանոթներն»",
             correctAnswers: ["մարտին", "martin", "մրդո", "mrdo"],
             successComment: "Ճիշտ է! Հենց Մարտինն / Մրդոն է 😎🔥",
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795109780/IMG_8815.mp4",
@@ -152,7 +153,7 @@
             errorVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795109870/video_2026-11-19_21-37-15.mp4"
         },
         {
-            question: "🎯 Ո՞վ է մեր այն թիմակիցը, ում ստամոքսի ռադարը միշտ միացված է բարձր հզորությամբ, թեև օրվա մյուս կեսն անցնում է նորանոր «ախտանիշների» մասին բարձրաձայնելով",
+            question: "🎯 Ո՞վ է մեր այն թիմակիցը, ում ստամոքսի ռադարը միշտ միացված է լրիվ հզորությամբ, թեև օրվա մյուս կեսն անցնում է նորանոր «ախտանիշների» մասին բարձրաձայնելով",
             correctAnswers: ["վալեր", "valer"],
             successComment: "Ճիշտ է! Հենց Վալերն է, էլ ո՞վ 🍕🍔😂",
             successVideo: "https://res.cloudinary.com/ktuc4qkq/video/upload/v1795110295/valer_jisht_es.mp4",
@@ -324,4 +325,38 @@
             messageDiv.innerText = "Սխալ պատասխան է ❌";
             resultComment.style.color = "#f43f5e";
             resultComment.innerText = currentQ.errorComment;
-            videoEl.src = current
+            videoEl.src = currentQ.errorVideo;
+            nextBtn.style.display = "none";
+            retryBtn.style.display = "inline-block";
+            backArrowBtn.style.display = "none";
+        }
+
+        videoEl.load();
+        videoEl.play().catch(e => console.log("Autoplay:", e));
+    }
+
+    if (startBtn) {
+        startBtn.addEventListener("click", function() {
+            introScreen.style.display = "none";
+            quizCard.style.display = "block";
+            loadQuestion();
+        });
+    }
+
+    checkBtn.addEventListener("click", checkAnswer);
+    backArrowBtn.addEventListener("click", returnToInput);
+    retryBtn.addEventListener("click", returnToInput);
+
+    nextBtn.addEventListener("click", function() {
+        currentQuestionIndex++;
+        loadQuestion();
+    });
+
+    answerInput.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+    });
+})();
+</script>
+
+</body>
+</html>
